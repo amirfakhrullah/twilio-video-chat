@@ -7,3 +7,10 @@ export const createOrFindRoomPayloadSchema = z.object({
 export type CreateOrFindRoomPayloadType = z.infer<
   typeof createOrFindRoomPayloadSchema
 >;
+
+export const validateJsonResponse = z.object({
+  token: z.string(),
+  identity: z.string(),
+});
+
+export type JsonResponseType = z.infer<typeof validateJsonResponse>;

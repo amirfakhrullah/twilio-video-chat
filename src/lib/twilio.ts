@@ -15,19 +15,23 @@ export const getTwilioClient = () => {
 };
 
 export const getAccessToken = (roomId: string) => {
+  const identity = uuidv4();
   try {
     const token = new AccessToken(
       env.TWILIO_ACCOUNT_SID,
       env.TWILIO_API_KEY_SID,
       env.TWILIO_API_KEY_SECRET,
-      { identity: uuidv4() }
+      { identity }
     );
 
     const videoGrant = new VideoGrant({
       room: roomId,
     });
     token.addGrant(videoGrant);
-    return token.toJwt();
+    return {
+      token: token.toJwt(),
+      identity,
+    };
   } catch (ex) {
     if (ex instanceof Error) {
       throw new Error(ex.message);
