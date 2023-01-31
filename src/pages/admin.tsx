@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Inter } from "@next/font/google";
 import styles from "@/styles/Home.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { type Room } from "twilio-video";
 import { joinRoom } from "@/helpers/client/api";
 import RoomScreen from "../components/RoomScreen";

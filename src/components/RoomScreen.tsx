@@ -28,8 +28,6 @@ const RoomScreen = ({ room, exitRoom, ...props }: RoomScreenProps) => {
     };
   }, [room]);
 
-  room.localParticipant;
-
   return (
     <div {...props}>
       <ParticipantScreen participant={room.localParticipant} />
