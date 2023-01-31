@@ -1,26 +1,30 @@
 import Head from "next/head";
 import { Inter } from "@next/font/google";
 import styles from "@/styles/Home.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { type Room } from "twilio-video";
 import { joinRoom } from "@/helpers/client/api";
 import RoomScreen from "../components/RoomScreen";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default function Admin() {
   const [roomId, setRoomId] = useState("");
   const [room, setRoom] = useState<Room | null>(null);
 
-  const handleFindAndJoin = async () => {
+  const handleCreateAndJoin = async () => {
     if (!roomId) return;
-    const newRoom = await joinRoom("find", roomId);
-    if (newRoom) {
-      setRoom(newRoom);
-    }
+    const newRoom = await joinRoom("create", roomId);
+    if (!newRoom) return;
+    setRoom(newRoom);
   };
 
   const exitRoom = () => {
+    if (!room) return;
+    // room.localParticipant.tracks.forEach((trackPub) => {
+    //   trackPub.track = null
+    // })
+    room.disconnect();
     setRoom(null);
   };
 
@@ -46,8 +50,8 @@ export default function Home() {
               value={roomId}
               onChange={handleChangeRoomId}
             />
-            <button type="button" onClick={() => handleFindAndJoin()}>
-              Find And Join
+            <button type="button" onClick={() => handleCreateAndJoin()}>
+              Create And Join
             </button>
           </div>
         )}
