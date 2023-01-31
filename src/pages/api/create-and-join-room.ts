@@ -17,7 +17,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     await createRoom(roomId);
     const { token, identity } = getAccessToken(roomId);
-    res.status(200).send({
+    return res.status(200).send({
       token,
       identity,
     });
